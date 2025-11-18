@@ -11,13 +11,19 @@ const App: React.FC = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [initError, setInitError] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log('Initializing Google Client...');
+    console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID ? 'Set' : 'NOT SET');
+    console.log('GEMINI_API_KEY:', process.env.GEMINI_API_KEY ? 'Set' : 'NOT SET');
+
     initGoogleClient().then(() => {
+      console.log('Google Client initialized successfully');
       setIsApiReady(true);
     }).catch(error => {
         console.error("Failed to initialize Google Client:", error);
-        // You could show an error message to the user here.
+        setInitError(error.message || 'Failed to initialize Google APIs');
     });
   }, []);
 
@@ -100,7 +106,7 @@ const App: React.FC = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
       {!isConnected ? (
-        <ConnectScreen onConnect={handleConnect} isApiReady={isApiReady} />
+        <ConnectScreen onConnect={handleConnect} isApiReady={isApiReady} error={initError} />
       ) : (
         <ChatInterface
           messages={messages}

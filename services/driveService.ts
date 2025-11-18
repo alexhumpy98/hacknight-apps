@@ -15,8 +15,12 @@ declare global {
 // IMPORTANT: You must create a Google Cloud project and obtain an OAuth 2.0 Client ID.
 // Follow the instructions at https://developers.google.com/drive/api/quickstart/js
 // to create your credentials and enable the Drive API.
-// Replace the string below with your actual Client ID.
-const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+// Set GOOGLE_CLIENT_ID in your .env.local file (see .env.local.example)
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
+
+if (!GOOGLE_CLIENT_ID) {
+  console.error('GOOGLE_CLIENT_ID is not set. Please set it in your .env.local file.');
+}
 
 const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
 const SCOPES = "https://www.googleapis.com/auth/drive.readonly";
@@ -27,10 +31,16 @@ function loadGapi(): Promise<void> {
   return new Promise((resolve, reject) => {
     if (window.gapi) {
       window.gapi.load('client', () => {
-        window.gapi.client.init({
-          apiKey: process.env.API_KEY,
-          discoveryDocs: DISCOVERY_DOCS,
-        }).then(resolve).catch(reject);
+        console.log('Loading gapi client...');
+        // Note: We don't need an API key when using OAuth 2.0 for Drive API
+        // The discoveryDocs will load the API definitions
+        window.gapi.client.load('drive', 'v3').then(() => {
+          console.log('Google Drive API loaded successfully');
+          resolve();
+        }).catch(error => {
+          console.error('Failed to load Drive API:', error);
+          reject(error);
+        });
       });
     } else {
       setTimeout(() => loadGapi().then(resolve).catch(reject), 100);

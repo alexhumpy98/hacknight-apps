@@ -5,9 +5,10 @@ import { GoogleDriveLogo } from './Icons';
 interface ConnectScreenProps {
   onConnect: () => void;
   isApiReady: boolean;
+  error?: string | null;
 }
 
-const ConnectScreen: React.FC<ConnectScreenProps> = ({ onConnect, isApiReady }) => {
+const ConnectScreen: React.FC<ConnectScreenProps> = ({ onConnect, isApiReady, error }) => {
   return (
     <div className="flex flex-col items-center justify-center h-full text-center p-8">
       <div className="max-w-md">
@@ -20,6 +21,15 @@ const ConnectScreen: React.FC<ConnectScreenProps> = ({ onConnect, isApiReady }) 
         <p className="text-gray-600 dark:text-gray-300 mb-8 text-lg">
           Securely connect your Google Drive account to get instant answers from your documents, spreadsheets, and presentations.
         </p>
+
+        {error && (
+          <div className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 px-4 py-3 rounded mb-4">
+            <p className="font-bold">Initialization Error</p>
+            <p className="text-sm">{error}</p>
+            <p className="text-xs mt-2">Check the browser console (F12) for more details.</p>
+          </div>
+        )}
+
         <button
           onClick={onConnect}
           disabled={!isApiReady}
