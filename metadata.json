@@ -1,0 +1,5 @@
+{
+  "name": "Google Drive Chat Assistant",
+  "description": "An AI-powered chat interface to ask questions about the content of your Google Drive documents. The application finds relevant documents and uses them to provide answers.",
+  "requestFramePermissions": []
+}
