@@ -2,11 +2,15 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# Google Drive Chat Assistant
 
-This contains everything you need to run your app locally.
+An AI-powered chat interface that searches your Google Drive documents and provides answers using Google's Gemini AI.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1AtPJG6-wEE--B6wSkUXGYO6V-qFTXtoe
+## Deployment Options
+
+- 🚀 **Google Cloud Run**: Production-ready deployment with auto-scaling ([Guide](docs/CLOUD_RUN_DEPLOYMENT.md))
+- 🔬 **Google AI Studio**: Quick testing and prototyping ([View](https://ai.studio/apps/drive/1AtPJG6-wEE--B6wSkUXGYO6V-qFTXtoe))
+- 💻 **Local Development**: Run on your machine for development
 
 ## Run Locally
 
@@ -45,3 +49,35 @@ This guide includes:
 - How to create Google OAuth credentials
 - Detailed troubleshooting steps
 - Testing your connection
+
+## Deploy to Production
+
+### Google Cloud Run (Recommended)
+
+Deploy to Google Cloud Run for a production-ready, scalable deployment:
+
+```bash
+./deploy-cloud-run.sh
+```
+
+📖 **[Cloud Run Deployment Guide](docs/CLOUD_RUN_DEPLOYMENT.md)**
+
+Benefits:
+- ✅ Auto-scaling from 0 to handle traffic spikes
+- ✅ Pay only for what you use
+- ✅ Automatic HTTPS and SSL certificates
+- ✅ Secure environment variable management
+- ✅ Custom domain support
+
+### Google AI Studio
+
+For quick testing and sharing with colleagues:
+
+📖 **[AI Studio Deployment Guide](docs/DEPLOYMENT.md)**
+
+## Documentation
+
+- **[Setup Guide](docs/SETUP.md)** - First-time setup and OAuth configuration
+- **[Cloud Run Deployment](docs/CLOUD_RUN_DEPLOYMENT.md)** - Production deployment guide
+- **[AI Studio Deployment](docs/DEPLOYMENT.md)** - AI Studio deployment
+- **[Roadmap](ROADMAP.md)** - Planned RAG features and improvements
